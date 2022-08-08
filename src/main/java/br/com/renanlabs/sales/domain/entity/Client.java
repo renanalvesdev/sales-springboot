@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "TB_CLIENT")
 public class Client {
@@ -24,6 +26,7 @@ public class Client {
 	
 	//client doesnt have any key to access orders, 
 	//but order has client key. that way we can acees all orders from client through mappedBy
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private Set<Order> orders;
 	
@@ -33,6 +36,15 @@ public class Client {
 	}
 	
 	
+	
+	public Client(Integer id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+
+
 	public Client() {
 		super();
 	}
