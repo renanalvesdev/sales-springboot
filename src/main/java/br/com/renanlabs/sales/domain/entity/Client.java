@@ -12,6 +12,13 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 @Table(name = "TB_CLIENT")
 public class Client {
@@ -36,40 +43,12 @@ public class Client {
 	}
 	
 	
-	
 	public Client(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
-
-
-	public Client() {
-		super();
-	}
-
-
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public Set<Order> getOrders() {
-		return orders;
-	}
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
-	
-	
 	@Override
 	public String toString() {
 		return "Client [id=" + id + ", name=" + name + "]";
