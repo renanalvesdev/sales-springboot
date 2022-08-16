@@ -12,6 +12,7 @@ import br.com.renanlabs.sales.domain.entity.Client;
 import br.com.renanlabs.sales.domain.entity.ItemOrder;
 import br.com.renanlabs.sales.domain.entity.Order;
 import br.com.renanlabs.sales.domain.entity.Product;
+import br.com.renanlabs.sales.domain.enums.OrderStatus;
 import br.com.renanlabs.sales.domain.repository.Clients;
 import br.com.renanlabs.sales.domain.repository.ItensOrder;
 import br.com.renanlabs.sales.domain.repository.Orders;
@@ -45,6 +46,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setTotal(dto.getTotal());
 		order.setDateOrder(LocalDate.now());
 		order.setClient(client);
+		order.setStatus(OrderStatus.FINISHED);
 		
 		List<ItemOrder> itensOrder = convertDtoItensOrderToItemOrder(order, dto.getItems());
 		repository.save(order);

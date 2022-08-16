@@ -57,6 +57,7 @@ public class OrderController {
 			.dateOrder(order.getDateOrder().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")))
 			.clientName(order.getClient().getName())
 			.total(order.getTotal())
+			.status(order.getStatus().name())
 			.items(converter(order.getItens()))
 			.build();
 	}
