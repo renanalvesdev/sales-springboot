@@ -2,6 +2,7 @@ package br.com.renanlabs.sales.service.impl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -71,6 +72,12 @@ public class OrderServiceImpl implements OrderService {
 					return itemOrder;
 				
 		}).collect(Collectors.toList());
+	}
+
+	
+	@Override
+	public Optional<Order> getCompleteOrder(Integer id) {
+		return repository.findByIdFetchItens(id);
 	}
 
 }
