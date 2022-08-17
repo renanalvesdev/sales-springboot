@@ -2,6 +2,8 @@ package br.com.renanlabs.sales.rest.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -41,7 +43,7 @@ public class ProductController {
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Product save(@RequestBody Product product) {
+	public Product save(@RequestBody @Valid Product product) {
 		return products.save(product);
 	}
 	
@@ -59,7 +61,7 @@ public class ProductController {
 	}
 	
 	@PutMapping("{id}")
-	public void update(@PathVariable Integer id, @RequestBody Product product) {
+	public void update(@PathVariable Integer id, @RequestBody @Valid Product product) {
 		products
 			.findById(id)
 			.map(foundProduct -> {

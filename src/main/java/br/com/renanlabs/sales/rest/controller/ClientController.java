@@ -1,13 +1,12 @@
 package br.com.renanlabs.sales.rest.controller;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,7 +46,7 @@ public class ClientController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Client save (@RequestBody Client client) {		
+	public Client save (@RequestBody @Valid Client client) {		
 		return clients.save(client);
 	}
 	
@@ -67,7 +66,7 @@ public class ClientController {
 	
 	@PutMapping("{id}")
 	public void update(@PathVariable Integer id,
-								 @RequestBody Client client) {
+								 @RequestBody @Valid Client client) {
 			clients
 				.findById(id)
 				.map(foundClient -> {

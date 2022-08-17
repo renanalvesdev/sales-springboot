@@ -18,6 +18,7 @@ import br.com.renanlabs.sales.domain.repository.ItensOrder;
 import br.com.renanlabs.sales.domain.repository.Orders;
 import br.com.renanlabs.sales.domain.repository.Products;
 import br.com.renanlabs.sales.exception.BusinessException;
+import br.com.renanlabs.sales.exception.OrderNotFoundException;
 import br.com.renanlabs.sales.rest.dto.ItemOrderDTO;
 import br.com.renanlabs.sales.rest.dto.OrderDTO;
 import br.com.renanlabs.sales.service.OrderService;
@@ -80,6 +81,20 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Optional<Order> getCompleteOrder(Integer id) {
 		return repository.findByIdFetchItens(id);
+	}
+
+	@Override
+	@Transactional
+	public void updateStatus(Integer id, OrderStatus orderStatus) {
+		//recuperar pedido do banco
+		 repository
+				 .findById(id)
+				 .map(order -> {
+					 order.setStatus(orderStatus);
+					 return repository.save(order);
+				 })
+				 .orElseThrow(() -> new OrderNotFoundException());
+		
 	}
 
 }
