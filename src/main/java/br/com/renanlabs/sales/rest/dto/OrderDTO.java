@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import br.com.renanlabs.sales.validation.NotEmptyList;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,10 +16,12 @@ import lombok.NoArgsConstructor;
 
 public class OrderDTO {
 	
-	@NotNull(message = "Client ID/code is required.")
+	@NotNull(message = "{field.client-code.required}")
 	private Integer client;
-	@NotNull(message = "Total is required.")
+	@NotNull(message = "{field.total-order.required}")
 	private BigDecimal total;
+	
+	@NotEmptyList(message = "{field.items-order.required}")
 	private List<ItemOrderDTO> items;
 	
 }

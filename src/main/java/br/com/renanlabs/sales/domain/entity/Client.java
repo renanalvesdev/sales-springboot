@@ -29,7 +29,7 @@ public class Client {
 	private Integer id;
 	
 	@Column(name = "name", length = 100)
-	@NotEmpty(message = "This field is required")
+	@NotEmpty(message = "{field.name.required}")
 	private String name;
 	
 	
