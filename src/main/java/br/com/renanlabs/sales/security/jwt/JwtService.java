@@ -1,4 +1,4 @@
-package br.com.renanlabs.sales;
+package br.com.renanlabs.sales.security.jwt;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
+import br.com.renanlabs.sales.SalesApplication;
 import br.com.renanlabs.sales.domain.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
