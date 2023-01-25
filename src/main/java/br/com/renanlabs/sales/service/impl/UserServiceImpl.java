@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.renanlabs.sales.domain.entity.User;
 import br.com.renanlabs.sales.domain.repository.UserRepository;
+import br.com.renanlabs.sales.exception.InvalidPasswordException;
 
 
 @Service
@@ -27,6 +28,17 @@ public class UserServiceImpl implements UserDetailsService {
 		return repository.save(user);
 	}
 	
+	public UserDetails authenticate(User user) {
+		UserDetails userDetails = loadUserByUsername(user.getLogin());
+		boolean passwordMatches = encoder.matches(user.getPassword(), userDetails.getPassword());
+		
+		if(passwordMatches)
+			return userDetails;
+		
+		throw new InvalidPasswordException();
+		
+	}
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = repository.findByLogin(username).orElseThrow(() -> new UsernameNotFoundException("User not found in database"));
@@ -41,6 +53,6 @@ public class UserServiceImpl implements UserDetailsService {
 				.password(user.getPassword())
 				.roles(roles)
 				.build();
-	}
+	} 
 
 }
