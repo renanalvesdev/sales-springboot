@@ -20,9 +20,15 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.com.renanlabs.sales.domain.entity.Client;
 import br.com.renanlabs.sales.domain.repository.Clients;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/clients")
+@Api("Clients API")
 public class ClientController {
 
 	private Clients clients;
@@ -34,7 +40,14 @@ public class ClientController {
 
 	@GetMapping("{id}")
 	//variable via URL in path
-	public Client getClientById(@PathVariable Integer id) {
+	@ApiOperation("Get Client details")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "Client Founded"),
+		@ApiResponse(code = 404, message = "Client not found for requested ID")
+	})
+	public Client getClientById(
+			@PathVariable 
+			@ApiParam("Client ID") Integer id) {
 		
 		return clients
 				.findById(id)
@@ -46,6 +59,11 @@ public class ClientController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@ApiOperation("Save a new Client")
+	@ApiResponses({
+		@ApiResponse(code = 201, message = "Client Saved successfull"),
+		@ApiResponse(code = 400, message = "Validation error")
+	})
 	public Client save (@RequestBody @Valid Client client) {		
 		return clients.save(client);
 	}
